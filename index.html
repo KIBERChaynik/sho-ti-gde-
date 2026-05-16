@@ -1,0 +1,1577 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Шотыгде? — Бар · Кофейня · Кафе | Калининград</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg-dark: #0a0a0f;
+            --bg-card: #12121a;
+            --bg-card-hover: #1a1a26;
+            --accent: #b829dd;
+            --accent-light: #d946ef;
+            --accent-glow: rgba(184, 41, 221, 0.3);
+            --gold: #f59e0b;
+            --text: #f0f0f5;
+            --text-muted: #8888a0;
+            --text-dim: #55556a;
+            --border: #222233;
+            --green: #22c55e;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg-dark); }
+        ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; }
+
+        /* NAV */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 1000;
+            padding: 0 2rem;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(10, 10, 15, 0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(184, 41, 221, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        nav.scrolled {
+            height: 60px;
+            background: rgba(10, 10, 15, 0.95);
+            border-bottom-color: rgba(184, 41, 221, 0.25);
+        }
+
+        .nav-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--accent-light), var(--gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-decoration: none;
+        }
+
+        .nav-links { display: flex; gap: 2rem; list-style: none; }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px; left: 0;
+            width: 0; height: 2px;
+            background: var(--accent);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover { color: var(--text); }
+        .nav-links a:hover::after { width: 100%; }
+
+        .nav-phone {
+            color: var(--accent-light);
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .burger-menu {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 5px;
+        }
+
+        .burger-menu span {
+            width: 25px;
+            height: 2px;
+            background: var(--text);
+            transition: all 0.3s;
+            border-radius: 2px;
+        }
+
+        /* HERO */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            padding: 2rem;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse at 20% 50%, rgba(184, 41, 221, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 20%, rgba(245, 158, 11, 0.08) 0%, transparent 40%),
+                radial-gradient(ellipse at 50% 80%, rgba(217, 70, 239, 0.1) 0%, transparent 50%);
+        }
+
+        .hero-particles {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: var(--accent);
+            border-radius: 50%;
+            opacity: 0;
+            animation: floatUp linear infinite;
+        }
+
+        @keyframes floatUp {
+            0% { opacity: 0; transform: translateY(100vh) scale(0); }
+            10% { opacity: 0.6; }
+            90% { opacity: 0.6; }
+            100% { opacity: 0; transform: translateY(-10vh) scale(1); }
+        }
+
+        .hero-content {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(184, 41, 221, 0.15);
+            border: 1px solid rgba(184, 41, 221, 0.3);
+            padding: 0.5rem 1.2rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--accent-light);
+            margin-bottom: 2rem;
+            animation: fadeInDown 0.8s ease;
+        }
+
+        .hero-badge .star { color: var(--gold); }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 0.5rem;
+            animation: fadeInUp 0.8s ease 0.2s both;
+        }
+
+        .hero-title .gradient-text {
+            background: linear-gradient(135deg, #fff, var(--accent-light), var(--gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1rem, 2.5vw, 1.3rem);
+            color: var(--text-muted);
+            font-weight: 300;
+            margin-bottom: 1rem;
+            animation: fadeInUp 0.8s ease 0.4s both;
+        }
+
+        .hero-tags {
+            display: flex;
+            justify-content: center;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+            margin-bottom: 2.5rem;
+            animation: fadeInUp 0.8s ease 0.5s both;
+        }
+
+        .hero-tag {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 0.8s ease 0.6s both;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: linear-gradient(135deg, var(--accent), var(--accent-light));
+            color: #fff;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 25px var(--accent-glow);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 35px rgba(184, 41, 221, 0.5);
+        }
+
+        .btn-outline {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: transparent;
+            color: var(--text);
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-decoration: none;
+            border: 1px solid var(--border);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-outline:hover {
+            border-color: var(--accent);
+            background: rgba(184, 41, 221, 0.1);
+        }
+
+        .hero-status {
+            margin-top: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            animation: fadeInUp 0.8s ease 0.8s both;
+        }
+
+        .status-dot {
+            width: 8px; height: 8px;
+            background: var(--green);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.4); }
+            50% { box-shadow: 0 0 0 8px rgba(34, 197, 94, 0); }
+        }
+
+        .status-text {
+            font-size: 0.85rem;
+            color: var(--green);
+            font-weight: 500;
+        }
+
+        /* SECTIONS */
+        section {
+            padding: 6rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--accent-light);
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 900;
+            margin-bottom: 1rem;
+        }
+
+        .section-desc {
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto;
+            font-size: 1rem;
+        }
+
+        /* ABOUT / VIBE */
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .about-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.4s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent), var(--gold));
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .about-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(184, 41, 221, 0.3);
+            background: var(--bg-card-hover);
+        }
+
+        .about-card:hover::before { opacity: 1; }
+
+        .about-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .about-card h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .about-card p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            line-height: 1.7;
+        }
+
+        /* MENU */
+        .menu-section {
+            background: linear-gradient(180deg, transparent, rgba(184, 41, 221, 0.03), transparent);
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .menu-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s;
+            cursor: pointer;
+        }
+
+        .menu-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(184, 41, 221, 0.3);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+
+        .menu-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            position: relative;
+        }
+
+        .menu-img-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, transparent 50%, var(--bg-card));
+        }
+
+        .menu-info {
+            padding: 1.5rem;
+        }
+
+        .menu-name {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.3rem;
+        }
+
+        .menu-weight {
+            font-size: 0.8rem;
+            color: var(--text-dim);
+            margin-bottom: 0.5rem;
+        }
+
+        .menu-desc {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .menu-bottom {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .menu-price {
+            font-size: 1.4rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--accent-light), var(--gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .menu-spice {
+            font-size: 0.8rem;
+            color: var(--text-dim);
+        }
+
+        /* AWARDS */
+        .awards-row {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 3rem;
+        }
+
+        .award-badge {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(184, 41, 221, 0.05));
+            border: 1px solid rgba(245, 158, 11, 0.2);
+            padding: 1.2rem 2rem;
+            border-radius: 16px;
+            transition: all 0.3s;
+        }
+
+        .award-badge:hover {
+            transform: scale(1.05);
+            border-color: rgba(245, 158, 11, 0.4);
+        }
+
+        .award-icon {
+            font-size: 2rem;
+        }
+
+        .award-text h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--gold);
+        }
+
+        .award-text p {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        /* REVIEWS */
+        .reviews-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .review-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.3s;
+        }
+
+        .review-card:hover {
+            border-color: rgba(184, 41, 221, 0.2);
+            background: var(--bg-card-hover);
+        }
+
+        .review-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .review-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent), var(--accent-light));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #fff;
+            flex-shrink: 0;
+        }
+
+        .review-meta h4 {
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        .review-meta span {
+            font-size: 0.75rem;
+            color: var(--text-dim);
+        }
+
+        .review-stars {
+            display: flex;
+            gap: 2px;
+            margin-bottom: 0.8rem;
+        }
+
+        .review-stars .star { color: var(--gold); font-size: 0.9rem; }
+
+        .review-text {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            line-height: 1.7;
+        }
+
+        .review-date {
+            margin-top: 1rem;
+            font-size: 0.75rem;
+            color: var(--text-dim);
+        }
+
+        /* RATING SUMMARY */
+        .rating-summary {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 3rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .rating-big {
+            text-align: center;
+        }
+
+        .rating-number {
+            font-size: 4rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--gold), #fbbf24);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1;
+        }
+
+        .rating-count {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 0.3rem;
+        }
+
+        .rating-bars {
+            flex: 1;
+            max-width: 300px;
+        }
+
+        .rating-bar-row {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 0.4rem;
+        }
+
+        .rating-bar-label {
+            font-size: 0.8rem;
+            color: var(--text-dim);
+            width: 20px;
+            text-align: right;
+        }
+
+        .rating-bar-track {
+            flex: 1;
+            height: 6px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .rating-bar-fill {
+            height: 100%;
+            background: var(--gold);
+            border-radius: 3px;
+            transition: width 1.5s ease;
+        }
+
+        /* SCHEDULE */
+        .schedule-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 1rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .schedule-day {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1.5rem 1rem;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .schedule-day.today {
+            border-color: var(--accent);
+            background: rgba(184, 41, 221, 0.08);
+        }
+
+        .schedule-day:hover {
+            transform: translateY(-3px);
+        }
+
+        .schedule-day-name {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-dim);
+            margin-bottom: 0.5rem;
+        }
+
+        .schedule-day-hours {
+            font-size: 1rem;
+            font-weight: 700;
+        }
+
+        .schedule-day-closed {
+            color: var(--text-dim);
+        }
+
+        /* CONTACT */
+        .contact-section {
+            background: linear-gradient(180deg, transparent, rgba(184, 41, 221, 0.03));
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .contact-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 2.5rem;
+            transition: all 0.3s;
+        }
+
+        .contact-card:hover {
+            border-color: rgba(184, 41, 221, 0.3);
+        }
+
+        .contact-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .contact-card h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-card p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .contact-card a {
+            color: var(--accent-light);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: color 0.3s;
+        }
+
+        .contact-card a:hover {
+            color: var(--gold);
+        }
+
+        /* MAP PLACEHOLDER */
+        .map-container {
+            margin-top: 3rem;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            height: 350px;
+            background: var(--bg-card);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .map-placeholder {
+            text-align: center;
+        }
+
+        .map-placeholder .icon { font-size: 3rem; margin-bottom: 1rem; }
+        .map-placeholder p { color: var(--text-muted); font-size: 0.9rem; }
+
+        /* FEATURES */
+        .features-row {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            transition: all 0.3s;
+        }
+
+        .feature-item:hover {
+            border-color: var(--accent);
+            color: var(--text);
+        }
+
+        .feature-item .feat-icon { font-size: 1.2rem; }
+
+        /* FOOTER */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 3rem 2rem;
+            text-align: center;
+            background: rgba(10, 10, 15, 0.9);
+        }
+
+        .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--accent-light), var(--gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        .footer-text {
+            color: var(--text-dim);
+            font-size: 0.8rem;
+        }
+
+        /* SCROLL ANIMATIONS */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* MOBILE MENU */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 999;
+            background: rgba(10, 10, 15, 0.98);
+            backdrop-filter: blur(20px);
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .mobile-menu.active { display: flex; }
+
+        .mobile-menu a {
+            color: var(--text);
+            text-decoration: none;
+            font-size: 1.5rem;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .mobile-menu a:hover { color: var(--accent-light); }
+
+        .mobile-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 2rem;
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 2rem;
+            cursor: pointer;
+        }
+
+        /* COLLECTIONS */
+        .collections-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .collection-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            transition: all 0.3s;
+        }
+
+        .collection-item:hover {
+            border-color: rgba(184, 41, 221, 0.3);
+            transform: translateX(5px);
+        }
+
+        .collection-icon {
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .collection-text h4 {
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 0.2rem;
+        }
+
+        .collection-text p {
+            font-size: 0.7rem;
+            color: var(--text-dim);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .nav-phone { display: none; }
+            .burger-menu { display: flex; }
+
+            .hero-title { font-size: clamp(2.5rem, 10vw, 4rem); }
+
+            .rating-summary { gap: 2rem; }
+
+            .schedule-grid {
+                grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            }
+
+            section { padding: 4rem 1.5rem; }
+
+            .menu-grid { grid-template-columns: 1fr; }
+            .reviews-container { grid-template-columns: 1fr; }
+        }
+
+        /* NEON LINE */
+        .neon-line {
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-light));
+            margin: 0 auto 1.5rem;
+            border-radius: 2px;
+            box-shadow: 0 0 15px var(--accent-glow);
+        }
+
+        /* CTA */
+        .cta-section {
+            text-align: center;
+            padding: 5rem 2rem;
+        }
+
+        .cta-box {
+            background: linear-gradient(135deg, rgba(184, 41, 221, 0.1), rgba(245, 158, 11, 0.05));
+            border: 1px solid rgba(184, 41, 221, 0.2);
+            border-radius: 30px;
+            padding: 4rem 2rem;
+            max-width: 700px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-box::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(184, 41, 221, 0.08) 0%, transparent 60%);
+            animation: rotateBg 15s linear infinite;
+        }
+
+        @keyframes rotateBg {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .cta-box > * { position: relative; z-index: 1; }
+
+        .cta-box h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            font-weight: 900;
+            margin-bottom: 1rem;
+        }
+
+        .cta-box p {
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            font-size: 1rem;
+        }
+
+        /* Glitch effect for title */
+        .glitch {
+            position: relative;
+        }
+
+        .glitch::before, .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+        }
+
+        .glitch::before {
+            animation: glitch-1 3s infinite linear alternate-reverse;
+            clip-path: inset(0 0 80% 0);
+            -webkit-text-fill-color: var(--accent-light);
+        }
+
+        .glitch::after {
+            animation: glitch-2 3s infinite linear alternate-reverse;
+            clip-path: inset(80% 0 0 0);
+            -webkit-text-fill-color: var(--gold);
+        }
+
+        @keyframes glitch-1 {
+            0%, 90%, 100% { transform: translate(0); }
+            92% { transform: translate(-3px, 1px); }
+            94% { transform: translate(3px, -1px); }
+            96% { transform: translate(-2px, 2px); }
+        }
+
+        @keyframes glitch-2 {
+            0%, 90%, 100% { transform: translate(0); }
+            91% { transform: translate(3px, 1px); }
+            93% { transform: translate(-3px, -1px); }
+            95% { transform: translate(2px, 2px); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAV -->
+    <nav id="navbar">
+        <a href="#" class="nav-logo">Шотыгде?</a>
+        <ul class="nav-links">
+            <li><a href="#about">О нас</a></li>
+            <li><a href="#menu">Меню</a></li>
+            <li><a href="#reviews">Отзывы</a></li>
+            <li><a href="#schedule">График</a></li>
+            <li><a href="#contact">Контакты</a></li>
+        </ul>
+        <a href="tel:+74012752570" class="nav-phone">📞 +7 (4012) 75-25-70</a>
+        <button class="burger-menu" id="burgerBtn" aria-label="Меню">
+            <span></span><span></span><span></span>
+        </button>
+    </nav>
+
+    <!-- MOBILE MENU -->
+    <div class="mobile-menu" id="mobileMenu">
+        <button class="mobile-close" id="mobileClose">&times;</button>
+        <a href="#about" onclick="closeMobile()">О нас</a>
+        <a href="#menu" onclick="closeMobile()">Меню</a>
+        <a href="#reviews" onclick="closeMobile()">Отзывы</a>
+        <a href="#schedule" onclick="closeMobile()">График</a>
+        <a href="#contact" onclick="closeMobile()">Контакты</a>
+        <a href="tel:+74012752570" style="color: var(--accent-light);">📞 Позвонить</a>
+    </div>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-particles" id="particles"></div>
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span class="star">⭐</span>
+                Рейтинг 5,0 · 664 оценки · Хорошее место 2026
+            </div>
+            <h1 class="hero-title glitch" data-text="Шотыгде?">
+                <span class="gradient-text">Шотыгде?</span>
+            </h1>
+            <p class="hero-subtitle">Бар · Кофейня · Кафе в Калининграде</p>
+            <div class="hero-tags">
+                <span class="hero-tag">🥃 Авторские настойки</span>
+                <span class="hero-tag">🍸 Коктейли</span>
+                <span class="hero-tag">🎲 Настолки</span>
+                <span class="hero-tag">🎵 Клевая музыка</span>
+            </div>
+            <div class="hero-actions">
+                <a href="#menu" class="btn-primary">🍽️ Смотреть меню</a>
+                <a href="tel:+74012752570" class="btn-outline">📞 Позвонить</a>
+            </div>
+            <div class="hero-status">
+                <span class="status-dot"></span>
+                <span class="status-text">Открыто до 04:00</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about">
+        <div class="section-header reveal">
+            <p class="section-label">Вайб</p>
+            <div class="neon-line"></div>
+            <h2 class="section-title">Хорошее место</h2>
+            <p class="section-desc">Бар «Шотыгде?» — это место, где вы можете насладиться вкусными настойками, авторскими сетами шотов и коктейлями.</p>
+        </div>
+        <div class="about-grid">
+            <div class="about-card reveal">
+                <div class="about-icon">🥃</div>
+                <h3>Настойки и шоты</h3>
+                <p>Авторские сеты шотов и фирменные настойки — визитная карточка нашего бара. Сет №1 «Вишнёвый Барбарис» — фаворит гостей.</p>
+            </div>
+            <div class="about-card reveal">
+                <div class="about-icon">🍸</div>
+                <h3>Коктейли на уровне</h3>
+                <p>Наши бармены создают коктейли, которые реально на уровне. Каждый напиток — маленькое произведение искусства.</p>
+            </div>
+            <div class="about-card reveal">
+                <div class="about-icon">🎲</div>
+                <h3>Настольные игры</h3>
+                <p>Есть настолки, в которые можно сыграть как вдвоём, так и в компании. Идеально для вечера с друзьями.</p>
+            </div>
+            <div class="about-card reveal">
+                <div class="about-icon">🎵</div>
+                <h3>Стилевая атмосфера</h3>
+                <p>Стилевый интерьер, клёвая музыка и уютная атмосфера. Отличное место, чтобы провести вечер и хорошо отдохнуть.</p>
+            </div>
+            <div class="about-card reveal">
+                <div class="about-icon">🍤</div>
+                <h3>Вкусная еда</h3>
+                <p>Лютые креветки, стрипсы из цыплёнка, сырные шарики — идеальные закуски к напиткам. Можно заказать навынос!</p>
+            </div>
+            <div class="about-card reveal">
+                <div class="about-icon">🐕</div>
+                <h3>Можно с собакой</h3>
+                <p>Мы любим животных! Приходите к нам со своим четвероногим другом — ему тут рады.</p>
+            </div>
+        </div>
+
+        <div class="features-row reveal">
+            <div class="feature-item"><span class="feat-icon">🥡</span> Еда навынос</div>
+            <div class="feature-item"><span class="feat-icon">🐕</span> Можно с собакой</div>
+            <div class="feature-item"><span class="feat-icon">🍺</span> Бокал пива от 315 ₽</div>
+            <div class="feature-item"><span class="feat-icon">🎲</span> Настольные игры</div>
+            <div class="feature-item"><span class="feat-icon">🎵</span> Клёвая музыка</div>
+        </div>
+    </section>
+
+    <!-- MENU -->
+    <section id="menu" class="menu-section">
+        <div class="section-header reveal">
+            <p class="section-label">Меню</p>
+            <div class="neon-line"></div>
+            <h2 class="section-title">Попробуйте</h2>
+            <p class="section-desc">Наши хиты — закуски, которые идеально подходят к напиткам</p>
+        </div>
+        <div class="menu-grid">
+            <div class="menu-card reveal">
+                <div class="menu-img" id="menuImg1">
+                    <div class="menu-img-overlay"></div>
+                </div>
+                <div class="menu-info">
+                    <h3 class="menu-name">Креветули Лютые 🔥</h3>
+                    <p class="menu-weight">180 г</p>
+                    <p class="menu-desc">Лютые креветки в панировке с соусом на выбор</p>
+                    <div class="menu-bottom">
+                        <span class="menu-price">490 ₽</span>
+                        <span class="menu-spice">🌶️ Острые</span>
+                    </div>
+                </div>
+            </div>
+            <div class="menu-card reveal">
+                <div class="menu-img" id="menuImg2">
+                    <div class="menu-img-overlay"></div>
+                </div>
+                <div class="menu-info">
+                    <h3 class="menu-name">Стрипсы из цыплёнка 🐔</h3>
+                    <p class="menu-weight">160 г</p>
+                    <p class="menu-desc">Нежная курочка в панировке, возьми и выбери соус</p>
+                    <div class="menu-bottom">
+                        <span class="menu-price">370 ₽</span>
+                        <span class="menu-spice">🥫 С соусом</span>
+                    </div>
+                </div>
+            </div>
+            <div class="menu-card reveal">
+                <div class="menu-img" id="menuImg3">
+                    <div class="menu-img-overlay"></div>
+                </div>
+                <div class="menu-info">
+                    <h3 class="menu-name">Чиз да Болл 🧀</h3>
+                    <p class="menu-weight">170 г</p>
+                    <p class="menu-desc">Сырные шарики, покоряющие вкусовые сосочки, идеально к пиву</p>
+                    <div class="menu-bottom">
+                        <span class="menu-price">380 ₽</span>
+                        <span class="menu-spice">🍺 К пиву</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="text-align: center; margin-top: 2.5rem;" class="reveal">
+            <a href="#contact" class="btn-outline">📋 Посмотреть всё меню</a>
+        </div>
+    </section>
+
+    <!-- AWARDS -->
+    <section id="awards">
+        <div class="section-header reveal">
+            <p class="section-label">Награды</p>
+            <div class="neon-line"></div>
+            <h2 class="section-title">Признание</h2>
+        </div>
+        <div class="awards-row reveal">
+            <div class="award-badge">
+                <span class="award-icon">🏆</span>
+                <div class="award-text">
+                    <h4>Хорошее место 2026</h4>
+                    <p>Награда для любимых мест пользователей Яндекс Карт</p>
+                </div>
+            </div>
+            <div class="award-badge">
+                <span class="award-icon">⭐</span>
+                <div class="award-text">
+                    <h4>Рейтинг 5,0</h4>
+                    <p>На основе 664 оценок</p>
+                </div>
+            </div>
+        </div>
+        <div class="collections-grid reveal">
+            <div class="collection-item">
+                <span class="collection-icon">🍺</span>
+                <div class="collection-text">
+                    <h4>14 хороших баров Калининграда</h4>
+                    <p>Яндекс Карты · 14 мест</p>
+                </div>
+            </div>
+            <div class="collection-item">
+                <span class="collection-icon">🥃</span>
+                <div class="collection-text">
+                    <h4>Бары Калининграда с шотами</h4>
+                    <p>Яндекс Карты · 12 мест</p>
+                </div>
+            </div>
+            <div class="collection-item">
+                <span class="collection-icon">🍸</span>
+                <div class="collection-text">
+                    <h4>Коктейльные заведения Центрального района</h4>
+                    <p>Яндекс Карты · 50 мест</p>
+                </div>
+            </div>
+            <div class="collection-item">
+                <span class="collection-icon">🍔</span>
+                <div class="collection-text">
+                    <h4>Бургеры в Калининграде: лучшие места</h4>
+                    <p>Яндекс Карты · 50 мест</p>
+                </div>
+            </div>
+            <div class="collection-item">
+                <span class="collection-icon">🌭</span>
+                <div class="collection-text">
+                    <h4>Хот-доги в Калининграде</h4>
+                    <p>Яндекс Карты · 15 мест</p>
+                </div>
+            </div>
+            <div class="collection-item">
+                <span class="collection-icon">🍷</span>
+                <div class="collection-text">
+                    <h4>Заведения Калининграда с настойками</h4>
+                    <p>Яндекс Карты · 27 мест</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- REVIEWS -->
+    <section id="reviews">
+        <div class="section-header reveal">
+            <p class="section-label">Отзывы</p>
+            <div class="neon-line"></div>
+            <h2 class="section-title">Что говорят гости</h2>
+            <p class="section-desc">330 отзывов от реальных посетителей</p>
+        </div>
+
+        <div class="rating-summary reveal">
+            <div class="rating-big">
+                <div class="rating-number">5,0</div>
+                <div class="rating-count">664 оценки</div>
+            </div>
+            <div class="rating-bars">
+                <div class="rating-bar-row">
+                    <span class="rating-bar-label">5</span>
+                    <div class="rating-bar-track"><div class="rating-bar-fill" style="width: 92%"></div></div>
+                </div>
+                <div class="rating-bar-row">
+                    <span class="rating-bar-label">4</span>
+                    <div class="rating-bar-track"><div class="rating-bar-fill" style="width: 6%"></div></div>
+                </div>
+                <div class="rating-bar-row">
+                    <span class="rating-bar-label">3</span>
+                    <div class="rating-bar-track"><div class="rating-bar-fill" style="width: 1%"></div></div>
+                </div>
+                <div class="rating-bar-row">
+                    <span class="rating-bar-label">2</span>
+                    <div class="rating-bar-track"><div class="rating-bar-fill" style="width: 0.5%"></div></div>
+                </div>
+                <div class="rating-bar-row">
+                    <span class="rating-bar-label">1</span>
+                    <div class="rating-bar-track"><div class="rating-bar-fill" style="width: 0.5%"></div></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="reviews-container">
+            <div class="review-card reveal">
+                <div class="review-header">
+                    <div class="review-avatar">КА</div>
+                    <div class="review-meta">
+                        <h4>Карина Аршанская</h4>
+                        <span>Знаток города 2 уровня</span>
+                    </div>
+                </div>
+                <div class="review-stars">
+                    <span class="star">⭐</span><span class="star">⭐</span><span class="star">⭐</span><span class="star">⭐</span><span class="star">⭐</span>
+                </div>
+                <p class="review-text">Отличный бар по всем параметрам. Стилевый, играет клевая музыка, есть настолки, в которые можно сыграть как вдвоём, так и в компании, вкусные коктейли и настойки!</p>
+                <p class="review-date">30 ноября 2025</p>
+            </div>
+            <div class="review-card reveal">
+                <div class="review-header">
+                    <div class="review-avatar" style="background: linear-gradient(135deg, #f59e0b, #ef4444);">ОГ</div>
+                    <div class="review-meta">
+                        <h4>Олег Гарячев</h4>
+                        <span>Знаток города 2 уровня</span>
+                    </div>
+                </div>
+                <div class="review-stars">
+                    <span class="star">⭐</span><span class="star">⭐</span><span class="star">⭐</span><span class="star">⭐</span><span class="star">⭐</span>
+                </div>
+                <p class="review-text">Очень атмосферный бар с приятной музыкой и отличным выбором напитков. Персонал вежливый и быстро обслуживает, а коктейли реально на уровне. Отличное место, чтобы провести вечер с друзьями!</p>
+                <p class="review-date">15 мая</p>
+            </div>
+            <div class="review-card reveal">
+                <div class="review-header">
+                    <div class="review-avatar" style="background: linear-gradient(135deg, #22c55e, #3b82f6);">👤</div>
+                    <div class="review-meta">
+                        <h4>Инкогнито</h4>
+                        <span>Знаток города 4 уровня</span>
+                    </div>
+                </div>
+                <div class="review-stars">
+                    <span class="star">⭐</span><span class="star">⭐</span><span class="star">⭐</span><span class="star">⭐</span><span class="star">⭐</span>
+                </div>
+                <p class="review-text">Здесь лучшие шоты!!! Сет №1 шотов «Вишнёвый Барбарис» — это однозначно фаворит, просто 1000/10 💔 💯 рекомендация!</p>
+                <p class="review-date">7 февраля</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SCHEDULE -->
+    <section id="schedule">
+        <div class="section-header reveal">
+            <p class="section-label">График</p>
+            <div class="neon-line"></div>
+            <h2 class="section-title">Время работы</h2>
+            <p class="section-desc">Открыты каждый день для вас</p>
+        </div>
+        <div class="schedule-grid reveal" id="scheduleGrid">
+            <div class="schedule-day" data-day="1">
+                <div class="schedule-day-name">Пн</div>
+                <div class="schedule-day-hours">16:00–01:00</div>
+            </div>
+            <div class="schedule-day" data-day="2">
+                <div class="schedule-day-name">Вт</div>
+                <div class="schedule-day-hours">16:00–01:00</div>
+            </div>
+            <div class="schedule-day" data-day="3">
+                <div class="schedule-day-name">Ср</div>
+                <div class="schedule-day-hours">16:00–01:00</div>
+            </div>
+            <div class="schedule-day" data-day="4">
+                <div class="schedule-day-name">Чт</div>
+                <div class="schedule-day-hours">16:00–02:00</div>
+            </div>
+            <div class="schedule-day" data-day="5">
+                <div class="schedule-day-name">Пт</div>
+                <div class="schedule-day-hours">16:00–04:00</div>
+            </div>
+            <div class="schedule-day" data-day="6">
+                <div class="schedule-day-name">Сб</div>
+                <div class="schedule-day-hours">16:00–04:00</div>
+            </div>
+            <div class="schedule-day" data-day="0">
+                <div class="schedule-day-name">Вс</div>
+                <div class="schedule-day-hours">16:00–02:00</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="contact-section">
+        <div class="section-header reveal">
+            <p class="section-label">Контакты</p>
+            <div class="neon-line"></div>
+            <h2 class="section-title">Как нас найти</h2>
+        </div>
+        <div class="contact-grid">
+            <div class="contact-card reveal">
+                <div class="contact-icon">📍</div>
+                <h3>Адрес</h3>
+                <p>ул. Фестивальная Аллея, 8</p>
+                <p style="font-size: 0.8rem; color: var(--text-dim); margin-top: 0.3rem;">Калининград, Центральный район</p>
+                <p style="margin-top: 0.8rem; font-size: 0.8rem; color: var(--text-muted);">🚶 34 м от ул. Космонавта Леонова</p>
+                <p style="font-size: 0.8rem; color: var(--text-muted);">🚕 Такси от 109 ₽</p>
+            </div>
+            <div class="contact-card reveal">
+                <div class="contact-icon">📞</div>
+                <h3>Телефон</h3>
+                <a href="tel:+74012752570">+7 (4012) 75-25-70</a>
+                <p style="margin-top: 1rem; font-size: 0.85rem; color: var(--text-muted);">Звоните, чтобы забронировать столик или узнать подробности</p>
+            </div>
+            <div class="contact-card reveal">
+                <div class="contact-icon">🕐</div>
+                <h3>Часы работы</h3>
+                <p>Пн–Ср: 16:00–01:00</p>
+                <p>Чт: 16:00–02:00</p>
+                <p>Пт–Сб: 16:00–04:00</p>
+                <p>Вс: 16:00–02:00</p>
+            </div>
+        </div>
+
+        <div class="map-container reveal">
+            <div class="map-placeholder">
+                <div class="icon">🗺️</div>
+                <p>ул. Фестивальная Аллея, 8, Калининград</p>
+                <a href="https://yandex.ru/maps/?text=Фестивальная+Аллея+8+Калининград" target="_blank" class="btn-outline" style="margin-top: 1rem; display: inline-flex;">
+                    📍 Показать на карте
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <div class="cta-section">
+        <div class="cta-box reveal">
+            <h2>Ждём вас в <span style="background: linear-gradient(135deg, var(--accent-light), var(--gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Шотыгде?</span></h2>
+            <p>Приходите за атмосферой, классными напитками и отличным вечером</p>
+            <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                <a href="tel:+74012752570" class="btn-primary">📞 Позвонить</a>
+                <a href="https://yandex.ru/maps/?text=Фестивальная+Аллея+8+Калининград" target="_blank" class="btn-outline">📍 Как добраться</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-logo">Шотыгде?</div>
+        <p class="footer-text">© 2026 Шотыгде? — Бар · Кофейня · Кафе · Калининград</p>
+        <p class="footer-text" style="margin-top: 0.5rem;">ул. Фестивальная Аллея, 8 · +7 (4012) 75-25-70</p>
+    </footer>
+
+    <script>
+        // Particles
+        const particlesContainer = document.getElementById('particles');
+        for (let i = 0; i < 30; i++) {
+            const p = document.createElement('div');
+            p.classList.add('particle');
+            p.style.left = Math.random() * 100 + '%';
+            p.style.animationDuration = (5 + Math.random() * 10) + 's';
+            p.style.animationDelay = Math.random() * 10 + 's';
+            p.style.width = (2 + Math.random() * 3) + 'px';
+            p.style.height = p.style.width;
+            if (Math.random() > 0.5) p.style.background = '#f59e0b';
+            particlesContainer.appendChild(p);
+        }
+
+        // Navbar scroll
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            navbar.classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // Mobile menu
+        const burgerBtn = document.getElementById('burgerBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileClose = document.getElementById('mobileClose');
+
+        burgerBtn.addEventListener('click', () => mobileMenu.classList.add('active'));
+        mobileClose.addEventListener('click', closeMobile);
+
+        function closeMobile() {
+            mobileMenu.classList.remove('active');
+        }
+
+        // Scroll reveal
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry, idx) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.classList.add('visible');
+                    }, idx * 80);
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // Highlight today in schedule
+        const today = new Date().getDay();
+        const scheduleDays = document.querySelectorAll('.schedule-day');
+        scheduleDays.forEach(day => {
+            if (parseInt(day.dataset.day) === today) {
+                day.classList.add('today');
+            }
+        });
+
+        // Menu images - generated
+        function generateMenuImages() {
+            const prompts = [
+                'Golden crispy spicy breaded shrimp served with dipping sauce, dark moody restaurant photography, dramatic lighting, overhead shot, professional food photography, dark background, warm tones',
+                'Crispy chicken strips tenders with various dipping sauces on a dark slate plate, moody bar food photography, warm lighting, overhead angle, professional food styling',
+                'Golden fried cheese balls mozzarella on a dark plate with herbs, bar snack photography, dramatic warm lighting, close-up, professional food photography, dark background'
+            ];
+
+            const ids = ['menuImg1', 'menuImg2', 'menuImg3'];
+            const emojis = ['🍤', '🍗', '🧀'];
+
+            ids.forEach((id, index) => {
+                const container = document.getElementById(id);
+                const emoji = document.createElement('span');
+                emoji.textContent = emojis[index];
+                emoji.style.cssText = 'font-size: 5rem; position: relative; z-index: 2; filter: drop-shadow(0 0 20px rgba(184,41,221,0.5));';
+                container.appendChild(emoji);
+            });
+        }
+
+        generateMenuImages();
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const offset = 80;
+                    const pos = target.getBoundingClientRect().top + window.pageYOffset - offset;
+                    window.scrollTo({ top: pos, behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Rating bars animation on scroll
+        const ratingBars = document.querySelectorAll('.rating-bar-fill');
+        const barsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const width = entry.target.style.width;
+                    entry.target.style.width = '0%';
+                    setTimeout(() => {
+                        entry.target.style.width = width;
+                    }, 200);
+                    barsObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        ratingBars.forEach(bar => barsObserver.observe(bar));
+    </script>
+</body>
+</html>
+
